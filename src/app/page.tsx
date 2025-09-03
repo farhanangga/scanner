@@ -7,7 +7,7 @@ export default function Home() {
 
         <Link href="/qrScanner/scan" className="w-full max-w-xs">
           <button className="w-full bg-[#660066] hover:bg-[#4d004d] text-white font-semibold py-3 px-4 rounded-lg shadow">
-            Qr Scanner
+            Qr Scannerr
           </button>
         </Link>
 
