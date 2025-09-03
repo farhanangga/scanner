@@ -52,7 +52,7 @@ export default function PreviewPage() {
 
       {/* Grid semua video */}
       <div className="w-full pt-15 flex flex-col items-center h-160 bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-4 w-full max-w-xl pt-4 ">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-3 px-4 w-full max-w-xl pt-4 ">
           {videos.map((src: string, i: number) => (
             <video
               key={i}
