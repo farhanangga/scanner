@@ -1,4 +1,5 @@
 "use client";
+
 import { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -10,13 +11,18 @@ export default function CameraPage() {
   useEffect(() => {
     async function setupCamera() {
       try {
+        // Deteksi apakah mobile
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
             aspectRatio: 1, // rasio 1:1
             width: { ideal: 640 },
             height: { ideal: 640 },
+            facingMode: isMobile ? { exact: "environment" } : "user", // mobile = belakang, laptop = depan
           },
         });
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
@@ -24,6 +30,7 @@ export default function CameraPage() {
         console.error("Tidak bisa akses kamera:", err);
       }
     }
+
     setupCamera();
   }, []);
 
@@ -46,29 +53,32 @@ export default function CameraPage() {
   };
 
   return (
-  <div className="fixed inset-0 flex flex-col bg-black">
-    {/* video square 1:1 */}
-    <div className="flex-grow flex items-center justify-center">
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        className="w-full max-w-md aspect-square object-cover"
-      />
-    </div>
+    <div className="fixed inset-0 flex flex-col bg-black">
+      {/* video square 1:1 */}
+      <div className="flex-grow flex items-center justify-center">
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          className="w-full max-w-md aspect-square object-cover"
+        />
+      </div>
 
-    {/* canvas hidden */}
-    <canvas ref={canvasRef} width={640} height={640} className="hidden" />
-
-    {/* tombol di bawah */}
-    <div className="flex justify-center pb-10">
-      <button
-        onClick={takePhoto}
-        className="bg-white h-16 w-16 rounded-full shadow-lg"
+      {/* canvas hidden */}
+      <canvas
+        ref={canvasRef}
+        width={640}
+        height={640}
+        className="hidden"
       />
+
+      {/* tombol di bawah */}
+      <div className="flex justify-center pb-10">
+        <button
+          onClick={takePhoto}
+          className="bg-white h-16 w-16 rounded-full shadow-lg"
+        />
+      </div>
     </div>
-  </div>
   );
-
-
 }

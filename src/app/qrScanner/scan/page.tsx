@@ -27,15 +27,15 @@ export default function ScanPage() {
     qrScannerRef.current = qrScanner;
 
     return () => {
-    if (qrScannerRef.current) {
-      qrScannerRef.current.stop();
-      qrScannerRef.current.destroy(); // optional: release semua resource
-      qrScannerRef.current = null;
-    }
-    if (videoRef.current) {
-      videoRef.current.srcObject = null;
-    }
-  };
+      if (qrScannerRef.current) {
+        qrScannerRef.current.stop();
+        qrScannerRef.current.destroy(); // optional: release semua resource
+        qrScannerRef.current = null;
+      }
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+    };
   }, [router]);
 
   return (

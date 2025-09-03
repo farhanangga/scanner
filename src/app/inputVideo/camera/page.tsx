@@ -12,17 +12,23 @@ export default function CameraPage() {
   useEffect(() => {
     async function setupCamera() {
       try {
+        // Deteksi apakah device mobile
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
         const stream = await navigator.mediaDevices.getUserMedia({
           video: {
             aspectRatio: 1, // rasio 1:1
             width: { ideal: 640 },
             height: { ideal: 640 },
+            facingMode: isMobile ? { exact: "environment" } : "user", // mobile=belakang, laptop=depan
           },
-          audio: true, // aktifkan audio juga
+          audio: true, // aktifkan audio
         });
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
+
         mediaRecorderRef.current = new MediaRecorder(stream, {
           mimeType: "video/webm;codecs=vp9",
         });
