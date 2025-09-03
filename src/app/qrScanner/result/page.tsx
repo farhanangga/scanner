@@ -1,9 +1,7 @@
 "use client";
-
-import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function ResultContent() {
+export default function ResultPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const qrData = searchParams.get("data");
@@ -44,12 +42,6 @@ function ResultContent() {
           >
             Kembali
           </button>
-          <button
-            onClick={handleOpenLink}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow"
-          >
-            Buka Data
-          </button>
         </div>
       </div>
 
@@ -77,21 +69,7 @@ function ResultContent() {
         >
           Kembali
         </button>
-        <button
-          onClick={handleOpenLink}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow"
-        >
-          Buka Data
-        </button>
       </div>
     </div>
-  );
-}
-
-export default function ResultPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ResultContent />
-    </Suspense>
   );
 }
